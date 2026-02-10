@@ -275,53 +275,56 @@ const Discovery = ({
       footerProps={footerProps}
       headerMetadata={headerMetadata}
       CustomHeaderComponent={EmptyHeader}
+      CustomFooterComponent={EmptyHeader}
     >
-      {menuItems.length === 0 ? (
-        <Center maw={400} h={100} mx="auto">
-          <div>No discovery configuration</div>
-        </Center>
-      ) : menuItems.length === 1 ? (
-        <DiscoveryIndexPanel
-          discoveryConfig={demoDiscoveryConfig.metadataConfig[0]}
-          indexSelector={null}
-        />
-      ) : (
-        <div className="flex flex-col items-center p-4 w-full bg-base-lightest">
-          <Tabs
-            className="w-full"
-            value={metadataIndex}
-            variant={demoDiscoveryConfig.metadataConfig[0]?.tabType}
-            onChange={(value) => setMetadataIndex(value ?? '0')}
-          >
-            <Tabs.List>
+      <div className="w-full">
+        {menuItems.length === 0 ? (
+          <Center maw={400} h={100} mx="auto">
+            <div>No discovery configuration</div>
+          </Center>
+        ) : menuItems.length === 1 ? (
+          <DiscoveryIndexPanel
+            discoveryConfig={demoDiscoveryConfig.metadataConfig[0]}
+            indexSelector={null}
+          />
+        ) : (
+          <div className="flex flex-col items-center p-4 w-full bg-base-lightest">
+            <Tabs
+              className="w-full"
+              value={metadataIndex}
+              variant={demoDiscoveryConfig.metadataConfig[0]?.tabType}
+              onChange={(value) => setMetadataIndex(value ?? '0')}
+            >
+              <Tabs.List>
+                {menuItems.map((item) => (
+                  <Tabs.Tab key={item.value} value={item.value}>
+                    {item.label}
+                  </Tabs.Tab>
+                ))}
+              </Tabs.List>
               {menuItems.map((item) => (
-                <Tabs.Tab key={item.value} value={item.value}>
-                  {item.label}
-                </Tabs.Tab>
+                <Tabs.Panel key={item.value} value={item.value}>
+                  <DiscoveryIndexPanel
+                    discoveryConfig={
+                      demoDiscoveryConfig.metadataConfig[Number.parseInt(item.value, 10)]
+                    }
+                    indexSelector={
+                      menuItems.length > 1 ? (
+                        <Select
+                          label="Metadata:"
+                          data={menuItems}
+                          value={metadataIndex}
+                          onChange={(value) => setMetadataIndex(value ?? '0')}
+                        />
+                      ) : null
+                    }
+                  />
+                </Tabs.Panel>
               ))}
-            </Tabs.List>
-            {menuItems.map((item) => (
-              <Tabs.Panel key={item.value} value={item.value}>
-                <DiscoveryIndexPanel
-                  discoveryConfig={
-                    demoDiscoveryConfig.metadataConfig[Number.parseInt(item.value, 10)]
-                  }
-                  indexSelector={
-                    menuItems.length > 1 ? (
-                      <Select
-                        label="Metadata:"
-                        data={menuItems}
-                        value={metadataIndex}
-                        onChange={(value) => setMetadataIndex(value ?? '0')}
-                      />
-                    ) : null
-                  }
-                />
-              </Tabs.Panel>
-            ))}
-          </Tabs>
-        </div>
-      )}
+            </Tabs>
+          </div>
+        )}
+      </div>
     </NavPageLayout>
   );
 };
