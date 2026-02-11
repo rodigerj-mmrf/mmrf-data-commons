@@ -58,7 +58,7 @@
             "searchableTextFields": [
               "study_description",
               "_unique_id",
-              "full_name"
+              "study_title"
             ]
           },
           "tagSearchDropdown": {
@@ -104,13 +104,6 @@
         {
           "name": "Study ID",
           "field": "_unique_id",
-          "contentType": "string",
-          "errorIfNotAvailable": false,
-          "valueIfNotAvailable": "n/a"
-        },
-        {
-          "name": "Study Name",
-          "field": "full_name",
           "contentType": "string",
           "errorIfNotAvailable": false,
           "valueIfNotAvailable": "n/a"
@@ -163,12 +156,6 @@
           {
             "groupWidth": "half",
             "fields": [
-              {
-                "name": "Study Name",
-                "field": "full_name",
-                "contentType": "string",
-                "includeIfNotAvailable": false
-              },
               {
                 "name": "Study Title",
                 "field": "study_title",

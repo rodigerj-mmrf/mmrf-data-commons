@@ -84,8 +84,6 @@ const DEMO_DISCOVERY_RECORDS: Array<Record<string, unknown>> = [
   {
     _hdp_uid: 'NCT01454297',
     _unique_id: 'NCT01454297',
-    full_name:
-      'Comprehensive molecular profiling of multiple myeloma identifies refined copy number and expression subtypes',
     study_title:
       'Comprehensive molecular profiling of multiple myeloma identifies refined copy number and expression subtypes',
     study_description:
@@ -104,8 +102,6 @@ const DEMO_DISCOVERY_RECORDS: Array<Record<string, unknown>> = [
   {
     _hdp_uid: 's43018-025-01072-4',
     _unique_id: 's43018-025-01072-4',
-    full_name:
-      'A single-cell atlas characterizes dysregulation of the bone marrow immune microenvironment associated with outcomes in multiple myeloma',
     study_title:
       'A single-cell atlas characterizes dysregulation of the bone marrow immune microenvironment associated with outcomes in multiple myeloma',
     study_description:
@@ -149,7 +145,7 @@ const useDemoDiscoveryDataLoader = ({
     discoveryConfig.features?.search?.searchBar?.searchableTextFields ?? [
       'study_description',
       '_unique_id',
-      'full_name',
+      'study_title',
     ];
 
   const normalizedSearch = (searchTerms.keyword?.keywords ?? [])
