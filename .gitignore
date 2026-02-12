@@ -44,3 +44,4 @@ yalc.lock
 credentials.json
 revproxy_nginx.conf
 backups/*
+prod_credentials.json

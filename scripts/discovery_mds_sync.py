@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Backup and publish discovery metadata for the dev MDS."""
+"""Backup and publish discovery metadata for dev or prod MDS."""
 
 from __future__ import annotations
 
@@ -27,7 +27,10 @@ else:
     IMPORT_ERROR = None
 
 
-DEFAULT_API = "https://dev-virtuallab.themmrf.org/"
+ENVIRONMENT_APIS = {
+    "dev": "https://dev-virtuallab.themmrf.org/",
+    "prod": "https://virtuallab.themmrf.org/",
+}
 DEFAULT_GUID_TYPE = "discovery_metadata"
 DEFAULT_GUID_FIELD = "_hdp_uid"
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -46,9 +49,15 @@ def parse_args() -> argparse.Namespace:
         help="Choose backup only, publish only, or both (default).",
     )
     parser.add_argument(
+        "--environment",
+        choices=("dev", "prod"),
+        default="dev",
+        help="Target environment used to pick default --api (default: dev).",
+    )
+    parser.add_argument(
         "--api",
-        default=DEFAULT_API,
-        help="Gen3 commons URL. Defaults to dev site.",
+        default=None,
+        help="Gen3 commons URL. Overrides --environment default when provided.",
     )
     parser.add_argument(
         "--credentials",
@@ -204,11 +213,12 @@ def main() -> int:
     records_path = Path(args.records_file).expanduser().resolve()
     backup_dir = Path(args.backup_dir).expanduser().resolve()
 
-    auth = Gen3Auth(args.api, refresh_file=str(credentials_path))
+    api_url = args.api or ENVIRONMENT_APIS[args.environment]
+    auth = Gen3Auth(api_url, refresh_file=str(credentials_path))
     if args.mode in ("backup", "both"):
         backup_paths = backup_discovery_metadata(
             auth=auth,
-            endpoint=args.api,
+            endpoint=api_url,
             guid_type=args.guid_type,
             backup_dir=backup_dir,
             limit=args.backup_limit,
@@ -225,7 +235,7 @@ def main() -> int:
         )
         published_count = publish_discovery_metadata(
             auth=auth,
-            endpoint=args.api,
+            endpoint=api_url,
             records=records,
             guid_type=args.guid_type,
             guid_field=args.guid_field,

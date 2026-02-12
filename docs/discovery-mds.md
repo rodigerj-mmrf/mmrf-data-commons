@@ -1,6 +1,6 @@
-# Dev Discovery MDS Migration Runbook
+# Discovery MDS Migration Runbook
 
-This runbook publishes the discovery entries for the dev commons MDS using the upstream Gen3 SDK.
+This runbook publishes discovery entries to either dev or prod MDS using the upstream Gen3 SDK.
 
 ## Prerequisites
 
@@ -26,12 +26,32 @@ Each record is published under:
 - `gen3_discovery` metadata block
 - GUID field `_hdp_uid`
 
-## 1) Backup Current Dev Discovery MDS
+## Environment Selection
+
+The script now supports `--environment`:
+
+- `dev` (default): `https://dev-virtuallab.themmrf.org/`
+- `prod`: `https://virtuallab.themmrf.org/`
+
+You can still override this with `--api`.
+
+## 1) Backup Current Discovery MDS
+
+Dev:
 
 ```bash
 python3 scripts/discovery_mds_sync.py \
+  --environment dev \
   --mode backup \
-  --api "https://dev-virtuallab.themmrf.org/" \
+  --credentials "/absolute/path/to/credentials.json"
+```
+
+Prod:
+
+```bash
+python3 scripts/discovery_mds_sync.py \
+  --environment prod \
+  --mode backup \
   --credentials "/absolute/path/to/credentials.json"
 ```
 
@@ -43,19 +63,31 @@ Backup files are written to:
 
 ```bash
 python3 scripts/discovery_mds_sync.py \
+  --environment dev \
   --mode publish \
   --dry-run \
-  --api "https://dev-virtuallab.themmrf.org/" \
   --credentials "/absolute/path/to/credentials.json" \
   --records-file "config/gen3/discovery.mds.seed.json"
 ```
 
-## 3) Publish to Dev MDS
+## 3) Publish Discovery Records
+
+Dev:
 
 ```bash
 python3 scripts/discovery_mds_sync.py \
+  --environment dev \
   --mode both \
-  --api "https://dev-virtuallab.themmrf.org/" \
+  --credentials "/absolute/path/to/credentials.json" \
+  --records-file "config/gen3/discovery.mds.seed.json"
+```
+
+Prod:
+
+```bash
+python3 scripts/discovery_mds_sync.py \
+  --environment prod \
+  --mode both \
   --credentials "/absolute/path/to/credentials.json" \
   --records-file "config/gen3/discovery.mds.seed.json"
 ```
@@ -64,8 +96,12 @@ python3 scripts/discovery_mds_sync.py \
 
 ## 4) Verify Records in MDS
 
-Use either the browser or SDK:
+Dev:
 
-- Browser:
-  - `https://dev-virtuallab.themmrf.org/mds/metadata/NCT01454297`
-  - `https://dev-virtuallab.themmrf.org/mds/metadata/s43018-025-01072-4`
+- `https://dev-virtuallab.themmrf.org/mds/metadata/NCT01454297`
+- `https://dev-virtuallab.themmrf.org/mds/metadata/s43018-025-01072-4`
+
+Prod:
+
+- `https://virtuallab.themmrf.org/mds/metadata/NCT01454297`
+- `https://virtuallab.themmrf.org/mds/metadata/s43018-025-01072-4`
