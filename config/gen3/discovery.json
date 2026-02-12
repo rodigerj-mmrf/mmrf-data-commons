@@ -5,6 +5,8 @@
         "selectableRows": true,
         "expandableRows": true
       },
+      "guidType": "discovery_metadata",
+      "studyField": "gen3_discovery",
       "features": {
         "advSearchFilters": {
           "enabled": false,
