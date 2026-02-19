@@ -8,9 +8,50 @@
     "link": "https://clinicaltrials.gov/study/NCT01454297",
     "project_id": "NCT01454297",
     "subjects_count": 1143,
-    "data_files_count": 0,
+    "data_files_count": 8,
     "__manifest": [],
-    "data_download_links": [],
+    "data_download_links": [
+      {
+        "guid": "dg.MMRF/1fa796d3-efd5-4690-a1d7-e37018f88a45",
+        "title": "Supplemental_Table_1_Patient_Features_Revised.xlsx",
+        "description": "Supplemental_Table_1_Patient_Features_Revised.xlsx"
+      },
+      {
+        "guid": "dg.MMRF/021f40d5-0150-4e28-abe0-765f5ab3dcb2",
+        "title": "Supplemental_Table_2_Mutations.xlsx",
+        "description": "Supplemental_Table_2_Mutations.xlsx"
+      },
+      {
+        "guid": "dg.MMRF/736ef5e4-b57d-4485-b7e2-f8e366a566c9",
+        "title": "Supplemental_Table_3_Delly_Structural_Calls_Updated.xlsx",
+        "description": "Supplemental_Table_3_Delly_Structural_Calls_Updated.xlsx"
+      },
+      {
+        "guid": "dg.MMRF/55690e6c-c9c7-44f6-b39f-63cb6f31648d",
+        "title": "Supplemental_Table_4_Salmon_V7.2_Filtered_Gene_TPM_and_InFrame_Fusions.xlsx",
+        "description": "Supplemental_Table_4_Salmon_V7.2_Filtered_Gene_TPM_and_InFrame_Fusions.xlsx"
+      },
+      {
+        "guid": "dg.MMRF/98d8331e-9c30-4653-a1e7-b414923c9f25",
+        "title": "Supplemental_Table_5_CNA_PerGene_LowestSegment_and_BAF_PerGene_LargestSegment.xlsx",
+        "description": "Supplemental_Table_5_CNA_PerGene_LowestSegment_and_BAF_PerGene_LargestSegment.xlsx"
+      },
+      {
+        "guid": "dg.MMRF/c1f52e6b-9123-4bc7-8d74-9d8a8f9dcb07",
+        "title": "Supplemental_Table_6_Gene_Impact.xlsx",
+        "description": "Supplemental_Table_6_Gene_Impact.xlsx"
+      },
+      {
+        "guid": "dg.MMRF/098b86f4-69b3-4913-a21e-cb8999f628dc",
+        "title": "Supplemental_Table_7_RNA_Subtyping.xlsx",
+        "description": "Supplemental_Table_7_RNA_Subtyping.xlsx"
+      },
+      {
+        "guid": "dg.MMRF/ace5ddb6-cea6-4d4b-aa1d-871bfb07f768",
+        "title": "Skerget_etal_SupplmentalData.tar.gz",
+        "description": "Skerget_etal_SupplmentalData.tar.gz"
+      }
+    ],
     "funding": "Multiple Myeloma Research Foundation",
     "authz": [
       "/open"

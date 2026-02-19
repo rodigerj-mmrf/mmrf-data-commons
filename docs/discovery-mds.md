@@ -43,7 +43,7 @@ Dev:
 python3 scripts/discovery_mds_sync.py \
   --environment dev \
   --mode backup \
-  --credentials "/absolute/path/to/credentials.json"
+  --credentials "credentials.json"
 ```
 
 Prod:
@@ -52,7 +52,7 @@ Prod:
 python3 scripts/discovery_mds_sync.py \
   --environment prod \
   --mode backup \
-  --credentials "/absolute/path/to/credentials.json"
+  --credentials "credentials.json"
 ```
 
 Backup files are written to:
@@ -66,7 +66,7 @@ python3 scripts/discovery_mds_sync.py \
   --environment dev \
   --mode publish \
   --dry-run \
-  --credentials "/absolute/path/to/credentials.json" \
+  --credentials "credentials.json" \
   --records-file "config/gen3/discovery.mds.seed.json"
 ```
 
@@ -78,7 +78,7 @@ Dev:
 python3 scripts/discovery_mds_sync.py \
   --environment dev \
   --mode both \
-  --credentials "/absolute/path/to/credentials.json" \
+  --credentials "credentials.json" \
   --records-file "config/gen3/discovery.mds.seed.json"
 ```
 
@@ -88,7 +88,7 @@ Prod:
 python3 scripts/discovery_mds_sync.py \
   --environment prod \
   --mode both \
-  --credentials "/absolute/path/to/credentials.json" \
+  --credentials "credentials.json" \
   --records-file "config/gen3/discovery.mds.seed.json"
 ```
 

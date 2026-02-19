@@ -10,17 +10,21 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import TYPE_CHECKING, Any
+from urllib.parse import urlparse
 
 import requests
 
 if TYPE_CHECKING:
     from gen3.auth import Gen3Auth
+    from gen3.metadata import Gen3Metadata
 
 try:
     from gen3.auth import Gen3Auth
+    from gen3.metadata import Gen3Metadata
     from gen3.tools.metadata.discovery import output_expanded_discovery_metadata
 except ImportError as import_error:
     Gen3Auth = Any  # type: ignore[assignment]
+    Gen3Metadata = Any  # type: ignore[assignment]
     output_expanded_discovery_metadata = None
     IMPORT_ERROR: Exception | None = import_error
 else:
@@ -33,6 +37,7 @@ ENVIRONMENT_APIS = {
 }
 DEFAULT_GUID_TYPE = "discovery_metadata"
 DEFAULT_GUID_FIELD = "_hdp_uid"
+MAX_GUIDS_PER_QUERY = 2000
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_RECORDS_FILE = REPO_ROOT / "config" / "gen3" / "discovery.mds.seed.json"
 DEFAULT_BACKUP_DIR = REPO_ROOT / "backups" / "mds" / "discovery"
@@ -137,6 +142,40 @@ async def _create_backup_file(
     )
 
 
+def _create_json_backup_fallback(
+    auth: Gen3Auth,
+    endpoint: str,
+    guid_type: str,
+    suffix: str,
+    limit: int,
+) -> str:
+    mds = Gen3Metadata(auth_provider=auth, endpoint=endpoint)
+    output_filename = (
+        "-".join(urlparse(auth.endpoint).netloc.split("."))
+        + f"-{guid_type}"
+        + (f"-{suffix}" if suffix else "")
+        + ".json"
+    )
+    output_metadata: list[dict[str, Any]] = []
+
+    for offset in range(0, limit, MAX_GUIDS_PER_QUERY):
+        query_limit = min(limit - offset, MAX_GUIDS_PER_QUERY)
+        partial_metadata = mds.query(
+            f"_guid_type={guid_type}",
+            return_full_metadata=True,
+            limit=query_limit,
+            offset=offset,
+        )
+        if not partial_metadata:
+            break
+        for guid, metadata in partial_metadata.items():
+            output_metadata.append({"guid": guid, **metadata})
+
+    with open(output_filename, "w", encoding="utf-8") as output_file:
+        json.dump(output_metadata, output_file, indent=4)
+    return output_filename
+
+
 def backup_discovery_metadata(
     auth: Gen3Auth,
     endpoint: str,
@@ -160,6 +199,25 @@ def backup_discovery_metadata(
                 limit=limit,
             )
         )
+        if output_format == "json":
+            created_path = Path(created_filename).resolve()
+            try:
+                with created_path.open("r", encoding="utf-8") as file_handle:
+                    parsed = json.load(file_handle)
+            except json.JSONDecodeError:
+                parsed = None
+            if parsed == []:
+                print(
+                    "WARNING: gen3 JSON backup export returned an empty list; "
+                    "using fallback MDS query export."
+                )
+                created_filename = _create_json_backup_fallback(
+                    auth=auth,
+                    endpoint=endpoint,
+                    guid_type=guid_type,
+                    suffix=backup_suffix,
+                    limit=limit,
+                )
         created_path = Path(created_filename).resolve()
         destination = backup_dir / created_path.name
         created_path.replace(destination)
