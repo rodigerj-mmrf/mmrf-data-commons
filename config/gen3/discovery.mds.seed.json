@@ -67,9 +67,45 @@
     "link": "https://www.nature.com/articles/s43018-025-01072-4",
     "project_id": "s43018-025-01072-4",
     "subjects_count": 337,
-    "data_files_count": 0,
+    "data_files_count": 7,
     "__manifest": [],
-    "data_download_links": [],
+    "data_download_links": [
+      {
+        "guid": "dg.MMRF/9ab87633-a5fd-48c2-95bf-51f22614c139",
+        "title": "COMBINED_VALIDATION_MMRF_ImmuneAtlas_Full_Censored_Metadata.rds",
+        "description": "COMBINED_VALIDATION_MMRF_ImmuneAtlas_Full_Censored_Metadata.rds"
+      },
+      {
+        "guid": "dg.MMRF/6efe7c8a-97ed-4d80-ae30-20c39d6b72cc",
+        "title": "Pilcher_etal_ExpressionData.tar.gz",
+        "description": "Pilcher_etal_ExpressionData.tar.gz"
+      },
+      {
+        "guid": "dg.MMRF/bb59c5c3-047a-4907-9d81-eebc8a5e21c1",
+        "title": "README.txt",
+        "description": "README.txt"
+      },
+      {
+        "guid": "dg.MMRF/1d465663-e9fb-4bf0-a452-921e39128f16",
+        "title": "md5.txt",
+        "description": "md5.txt"
+      },
+      {
+        "guid": "dg.MMRF/63919e0b-e3a1-4e52-a064-93034ec67396",
+        "title": "per_aliquot_metadata_MMRF_IA.csv",
+        "description": "per_aliquot_metadata_MMRF_IA.csv"
+      },
+      {
+        "guid": "dg.MMRF/a07c503c-18ce-44c8-b177-177bb0d2d62a",
+        "title": "per_aliquot_metadata_MMRF_IA.rds",
+        "description": "per_aliquot_metadata_MMRF_IA.rds"
+      },
+      {
+        "guid": "dg.MMRF/168fa2ef-7797-49ee-bfa0-b0eaba47c1f7",
+        "title": "per_aliquot_metadata_MMRF_IA_dictionary.csv",
+        "description": "per_aliquot_metadata_MMRF_IA_dictionary.csv"
+      }
+    ],
     "funding": "Multiple Myeloma Research Foundation",
     "authz": [
       "/open"
