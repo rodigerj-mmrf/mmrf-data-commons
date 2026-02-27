@@ -5,15 +5,25 @@
   "tabsConfiguration": {
     "general": {
       "label": "General",
-      "facets": [
-        "project.project_id",
-        "primary_site",
-        "disease_type"
-      ],
+      "facets": ["project.project_id", "primary_site", "disease_type"],
       "fieldsConfig": {
         "project.project_id": {
           "description": "The project ID is a unique identifier assigned to each project.",
-          "excludeValues" : ["MMRF-IA11", "MMRF-IA12", "MMRF-IA13", "MMRF-IA14", "MMRF-IA15", "MMRF-IA16", "MMRF-IA17", "MMRF-IA18", "MMRF-IA19", "MMRF-IA20", "MMRF-IA21", "MMRF-IA22", "MMRF-IA23"]
+          "excludeValues": [
+            "MMRF-IA11",
+            "MMRF-IA12",
+            "MMRF-IA13",
+            "MMRF-IA14",
+            "MMRF-IA15",
+            "MMRF-IA16",
+            "MMRF-IA17",
+            "MMRF-IA18",
+            "MMRF-IA19",
+            "MMRF-IA20",
+            "MMRF-IA21",
+            "MMRF-IA22",
+            "MMRF-IA23"
+          ]
         },
         "primary_site": {
           "description": "The text term used to describe the primary site of disease, as categorized by the World Health Organization's (WHO) International Classification of Diseases for Oncology (ICD-O). This categorization groups cases into general categories. Reference tissue_or_organ_of_origin on the diagnosis node for more specific primary sites of disease."
@@ -71,7 +81,8 @@
           "description": "Age in days at which a condition or disease was first diagnosed. CDE: 3225640. TCGA has the age in years with CDE 2006657, this is converted by ceil(age*365.25) to get days.",
           "range": {
             "maximum": 32872,
-            "minimum": 0
+            "minimum": 0,
+            "step": 10
           }
         },
         "demographic.days_to_death": {
@@ -80,7 +91,8 @@
           "description": "Number of days between the date used for index and the date from a person's date of death represented as a calculated number of days.",
           "range": {
             "maximum": 32872,
-            "minimum": 0
+            "minimum": 0,
+            "step": 10
           }
         },
         "demographic.year_of_death": {
@@ -90,7 +102,8 @@
           "description": "The year component of the subject's date of death, if applicable. In a de-identified dataset, this variable will help with sequencing events.",
           "range": {
             "maximum": 2050,
-            "minimum": 1950
+            "minimum": 1950,
+            "step": 10
           }
         },
         "demographic.age_at_index": {
@@ -100,16 +113,15 @@
           "description": "Subject's age at the time of first therapy for multiple myeloma diagnosis.",
           "range": {
             "maximum": 32507,
-            "minimum": 0
+            "minimum": 0,
+            "step": 10
           }
         }
       }
     },
     "family_histories": {
       "label": "Family Histories",
-      "facets": [
-        "family_histories.relatives_with_cancer_history_count"
-      ],
+      "facets": ["family_histories.relatives_with_cancer_history_count"],
       "fieldsConfig": {
         "family_histories.relatives_with_cancer_history_count": {
           "label": "Relatives With Cancer History",
@@ -140,6 +152,7 @@
           "description": "Indication and number of lytic bone lesions found on scan if imaging_result=\"positive.\" If imaging_result was not \"positive\", then \"not_applicable\" is recorded."
         },
         "bone_assessments.mm_bone_lesion_femur": {
+          "label": "MM Bone Lesion Femur",
           "description": "Indication that the exam found evidence of myeloma-related bone lesion(s) on femur."
         },
         "bone_assessments.mm_bone_lesion_pelvis": {
@@ -334,6 +347,10 @@
         "index": "case_centric",
         "indexPrefix": "CaseCentric_"
       }
+    },
+    "files": {
+      "label": "Files",
+      "facets": ["files.experimental_strategy"]
     }
   }
 }
